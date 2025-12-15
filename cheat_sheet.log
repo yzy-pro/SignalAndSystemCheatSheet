@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.4.27)  15 DEC 2025 14:12
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.4.27)  15 DEC 2025 14:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -852,104 +852,104 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 36.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (2.46642pt too wide) detected at line 51
+Overfull \hbox (2.46642pt too wide) detected at line 52
 []
  []
 
 
-Overfull \hbox (3.25319pt too wide) detected at line 71
+Overfull \hbox (3.25319pt too wide) detected at line 72
 []
  []
 
 
-Overfull \hbox (12.69415pt too wide) detected at line 166
+Overfull \hbox (12.69415pt too wide) detected at line 167
 []
  []
 
 
-Overfull \hbox (6.23424pt too wide) detected at line 179
+Overfull \hbox (6.23424pt too wide) detected at line 180
 []
  []
 
 
-Overfull \hbox (31.96916pt too wide) detected at line 205
+Overfull \hbox (31.96916pt too wide) detected at line 206
 []
  []
 
 
-Overfull \hbox (5.61266pt too wide) detected at line 214
+Overfull \hbox (5.61266pt too wide) detected at line 215
 []
  []
 
 
-Overfull \hbox (0.28053pt too wide) detected at line 220
+Overfull \hbox (0.28053pt too wide) detected at line 221
 []
  []
 
 
-Overfull \hbox (67.38474pt too wide) detected at line 242
+Overfull \hbox (25.3291pt too wide) detected at line 244
 []
  []
 
 
-Overfull \hbox (17.81645pt too wide) detected at line 255
+Overfull \hbox (17.81645pt too wide) detected at line 257
 []
  []
 
 
-Overfull \hbox (21.0812pt too wide) detected at line 287
+Overfull \hbox (21.0812pt too wide) detected at line 291
 []
  []
 
 [1
 
 ]
-Overfull \hbox (0.78233pt too wide) detected at line 300
+Overfull \hbox (0.78233pt too wide) detected at line 304
 []
  []
 
 
-Overfull \hbox (2.7002pt too wide) detected at line 335
+Overfull \hbox (2.7002pt too wide) detected at line 339
 []
  []
 
 
-Overfull \hbox (24.63994pt too wide) detected at line 344
+Overfull \hbox (24.63994pt too wide) detected at line 348
 []
  []
 
 
-Overfull \hbox (11.57672pt too wide) detected at line 395
+Overfull \hbox (11.57672pt too wide) detected at line 399
 []
  []
 
 
-Overfull \hbox (9.07043pt too wide) detected at line 434
+Overfull \hbox (9.07043pt too wide) detected at line 438
 []
  []
 
 
-Overfull \hbox (20.8485pt too wide) detected at line 440
+Overfull \hbox (20.8485pt too wide) detected at line 444
 []
  []
 
 
-Overfull \hbox (133.22974pt too wide) detected at line 452
+Overfull \hbox (133.22974pt too wide) detected at line 456
 []
  []
 
 
-Overfull \hbox (99.68097pt too wide) detected at line 463
+Overfull \hbox (99.68097pt too wide) detected at line 469
 []
  []
 
 
-Overfull \hbox (80.78734pt too wide) detected at line 469
+Overfull \hbox (80.78734pt too wide) detected at line 475
 []
  []
 
 
-Overfull \hbox (74.14944pt too wide) detected at line 476
+Overfull \hbox (7.56177pt too wide) detected at line 482
 []
  []
 
@@ -964,10 +964,10 @@ Package rerunfilecheck Info: File `cheat_sheet.out' has not changed.
 Here is how much of TeX's memory you used:
  27696 strings out of 470267
  593448 string characters out of 5484665
- 1090308 words of memory out of 5000000
+ 1088308 words of memory out of 5000000
  53883 multiletter control sequences out of 15000+600000
  632734 words of font info for 78 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,16n,112p,473b,890s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on cheat_sheet.xdv (2 pages, 62676 bytes).
+Output written on cheat_sheet.xdv (2 pages, 62852 bytes).

@@ -39,6 +39,7 @@
 \end{align*}
 \subsection{重要性质}
 \begin{align*}
+  &1. \delta(at) = \frac{1}{|a|} \delta(t) \\
 &1. \text{若 } x_1(t) * x_2(t) = y(t) \text{,则 } \\
 &x_1(t - t_1) * x_2(t - t_2) = y(t - t_1 - t_2) \\
 &2. E \text{rect}\left(\frac{t}{\tau}\right)\text{自卷积}= E^2 \tau \text{tri}\left(\frac{t}{2\tau}\right)
@@ -229,14 +230,15 @@
 \\
 &\text{，}\text{Re}(s+a) \in R \\
 &\text{4. 尺度变换：}f(a t) \rightarrow \frac{1}{|a|} F\left(\frac{s}{a}\right)
-\\
-&\text{，}\frac{s}{a} \in R \\
+\text{，}\frac{s}{a} \in R \\
 &\text{5. 时域微分：}f'(t) \rightarrow s F(s)\text{，至少}R \\
 &\text{6. }s\text{ 域微分：}t f(t) \rightarrow -\frac{d F(s)}{d s}\text{，}R \\
-&\text{7. 积分：}\int_{-\infty}^{t} f(\tau) d \tau \rightarrow \frac{F(s)}{s}\text{，至少}R \cap \{\text{Re}(s)>0\} \\
-&\text{8. 卷积性：}f(t) * g(t) \rightarrow F(s) G(s)\text{，R至少}R_1 \cap R_2 \\
-&\text{9. 初值定理：}f(0^+) = \lim_{s \to \infty} s F(s)\text{（因果信号）} \\
-&\text{10. 终值定理：}\lim_{t \to \infty} f(t) = \lim_{s \to 0} s F(s)
+&\text{7. 积分：}\int_{-\infty}^{t} f(\tau) d \tau \rightarrow \frac{F(s)}{s}
+\\
+&\text{，至少}R \cap \{\text{Re}(s)>0\} \\
+&\text{8. 卷积:}f(t) * g(t) \rightarrow F(s) G(s)\text{至少}R_1 \cap R_2 \\
+&\text{9. 初值：}f(0^+) = \lim_{s \to \infty} s F(s)\text{（因果信号）} \\
+&\text{10. 终值：}\lim_{t \to \infty} f(t) = \lim_{s \to 0} s F(s)
 \\
 &\text{（极点在左半平面或原点）}
 \end{align*}
@@ -284,6 +286,8 @@
 &\text{9. 终值：}\lim_{n \to \infty} x[n]=\lim_{z \to 1} (z-1) X(z)
 \\
 &\text{（极点在单位圆内或 }z=1\text{）}
+\\
+&\text{10. 实信号的s变换的零极点共轭出现}
 \end{align*}
 
 \subsection{常见z变换对}
@@ -459,7 +463,9 @@
 &\text{3. D/C转换：} \\
 &\quad \text{理想重建：}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \frac{\sin(\pi(t-nT)/T)}{\pi(t-nT)/T} \\
 &\quad \text{零阶保持：}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \text{rect}\left(\frac{t-nT-T/2}{T}\right) \\
-&\text{4. 等效连续系统：}H_{eff}(j\Omega)=H(e^{j\Omega/T})\text{（}|\Omega|<\pi/T\text{）}
+&\text{4. 等效连续系统：}H_{eff}(j\Omega)=
+\\
+&H(e^{j\Omega/T})\text{（}|\Omega|<\pi/T\text{）}
 \end{align*}
 
 \subsection{混叠现象}
@@ -470,7 +476,7 @@
 
 \section{注意事项}
 \begin{align*}
-&\text{1. 审题明确求解目标（单位冲激响应/单位阶跃响应等）} \\
+&\text{1. 看清题目（单位冲激/阶跃响应等）} \\
 &\text{2. 注意隐含的因果性和稳定性条件} \\
 &\text{3. 拉普拉斯变换与z变换需明确收敛域}
 \end{align*}
