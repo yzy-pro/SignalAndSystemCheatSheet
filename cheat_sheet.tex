@@ -1,7 +1,19 @@
 \documentclass{article}
 \usepackage{amsmath,amssymb}
+\allowdisplaybreaks
 \usepackage{multicol}
 \usepackage{geometry}
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
+\titlespacing*{\algin}{0pt}{0pt}{0pt}
+\usepackage{hyperref}
+\usepackage{tikz}
 \geometry{a4paper, landscape, margin=1cm}
 
 \title{信号处理核心公式汇总}
@@ -9,86 +21,98 @@
 \date{}
 
 \begin{document}
-\maketitle
-\begin{multicols*}{5}
+\begin{multicols*}{4}
+
+\section{卷积}
+\begin{align*}
+&x(t) * h(t)=\int_{-\infty}^{\infty} x(\tau) h(t-\tau) d \tau \\
+&x[n] * h[n]=\sum_{k=-\infty}^{\infty} x[k] h[n-k] \\
+&\text{重要性质：} \\
+&1. \text{若 } x_1(t) * x_2(t) = y(t) \\
+&\quad \text{则 } x_1(t - t_1) * x_2(t - t_2) = y(t - t_1 - t_2) \\
+&2. E \text{rect}\left(\frac{t}{\tau}\right) * E \text{rect}\left(\frac{t}{\tau}\right) = E^2 \tau \text{tri}\left(\frac{t}{2\tau}\right)
+\end{align*}
 
 \section{傅里叶级数}
-连续周期信号：\(f(t)=f(t+T)\)，基波角频率 \(\omega_{0}=\frac{2 \pi}{T}\)
-
+连续周期信号：$f(t)=f(t+T)$，基波角频率 $\omega_{0}=\frac{2 \pi}{T}$
 \subsection{数学形式}
-- 三角形式：
-  \[
-  f(t)=a_{0}+\sum_{n=1}^{\infty}\left[a_{n} \cos(n \omega_{0} t)+b_{n} \sin(n \omega_{0} t)\right]
-  \]
-- 指数形式：
-  \[
-  f(t)=\sum_{n=-\infty}^{\infty} c_{n} e^{j n \omega_{0} t}
-  \]
-  其中傅里叶系数：
-  \[
-  c_{n}=\frac{1}{T} \int_{T} f(t) e^{-j n \omega_{0} t} dt
-  \]
+\begin{align*}
+&\text{三角形式：} \\
+&f(t)=a_{0}+\sum_{n=1}^{\infty}\left[a_{n} \cos(n \omega_{0} t)+b_{n} \sin(n \omega_{0} t)\right] \\
+&\text{指数形式：} \\
+&f(t)=\sum_{n=-\infty}^{\infty} c_{n} e^{j n \omega_{0} t} \\
+&\text{其中傅里叶系数：} \\
+&c_{n}=\frac{1}{T} \int_{T} f(t) e^{-j n \omega_{0} t} dt
+\end{align*}
 
 \subsection{核心关系与性质}
-- 系数关系（\(f(t)\) 为实信号）：
-  \[
-  c_{0}=a_{0}, \quad c_{n}=\frac{a_{n}-j b_{n}}{2}, \quad c_{-n}=c_{n}^{*}
-  \]
-- 线性性：\(a f(t)+b g(t) \leftrightarrow a c_{n}+b d_{n}\)
-- 时移性：\(f(t-t_{0}) \leftrightarrow c_{n} e^{-j n \omega_{0} t_{0}}\)
-- 共轭对称性：\(f(t)\) 实 \(\Rightarrow c_{-n}=c_{n}^{*}\)
-- 帕塞瓦尔定理：
-  \[
-  \frac{1}{T} \int_{T}|f(t)|^{2} dt=\sum_{n=-\infty}^{\infty}\left|c_{n}\right|^{2}
-  \]
+\begin{align*}
+&\text{1. 系数关系（}f(t)\text{ 为实信号）：} \\
+&c_{0}=a_{0}, \quad c_{n}=\frac{a_{n}-j b_{n}}{2}, \quad c_{-n}=c_{n}^{*} \\
+&\text{2. 线性性：}a f(t)+b g(t) \leftrightarrow a c_{n}+b d_{n} \\
+&\text{3. 时移性：}f(t-t_{0}) \leftrightarrow c_{n} e^{-j n \omega_{0} t_{0}} \\
+&\text{4. 共轭对称性：}f(t) \text{ 实 } \Rightarrow c_{-n}=c_{n}^{*} \\
+&\text{5. 帕塞瓦尔定理：} \\
+&\frac{1}{T} \int_{T}|f(t)|^{2} dt=\sum_{n=-\infty}^{\infty}\left|c_{n}\right|^{2}
+\end{align*}
 
 \section{傅里叶变换}
 \subsection{定义}
-- 正变换：
-  \[
-  F(\omega)=\mathcal{F}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-j \omega t} dt
-  \]
-- 逆变换：
-  \[
-  f(t)=\mathcal{F}^{-1}[F(\omega)]=\frac{1}{2 \pi} \int_{-\infty}^{\infty} F(\omega) e^{j \omega t} d \omega
-  \]
-
-\subsection{主要性质}
-1. 线性性：\(\mathcal{F}[a f(t)+b g(t)]=a F(\omega)+b G(\omega)\)
-2. 时移性：\(\mathcal{F}[f(t-t_{0})]=F(\omega) e^{-j \omega t_{0}}\)
-3. 频移性：\(\mathcal{F}[f(t) e^{j \omega_{0} t}]=F(\omega-\omega_{0})\)
-4. 尺度变换：\(\mathcal{F}[f(a t)]=\frac{1}{|a|} F\left(\frac{\omega}{a}\right)\)
-5. 对称性（对偶性）：\(\mathcal{F}[F(t)]=2 \pi f(-\omega)\)
-6. 时域微分：\(\mathcal{F}\left[\frac{d^{n} f(t)}{d t^{n}}\right]=(j\omega)^{n}F(\omega)\)，条件：\(f(\pm\infty)=0\)
-7. 频域微分：\(\mathcal{F}\left[t^{n} f(t)\right]=j^{n} \frac{d^{n} F(\omega)}{d \omega^{n}}\)
-8. 积分性：\(\mathcal{F}\left[\int_{-\infty}^{t} f(\tau) d \tau\right]=\frac{F(\omega)}{j \omega}+\pi F(0) \delta(\omega)\)
-9. 时域卷积：\(\mathcal{F}[f(t) * g(t)]=F(\omega) G(\omega)\)
-10. 频域卷积：\(\mathcal{F}[f(t) g(t)]=\frac{1}{2 \pi} F(\omega) * G(\omega)\)
-11. 帕塞瓦尔定理：
-    \[
-    \int_{-\infty}^{\infty}|f(t)|^{2} dt=\frac{1}{2 \pi} \int_{-\infty}^{\infty}|F(\omega)|^{2} d \omega
-    \]
-12. 共轭对称性：若 \(f(t)\) 实，则 \(F(-\omega)=F^{*}(\omega)\)
-
-\subsection{奇偶虚实性}
-- \(f(t)\) 实偶 \(\Rightarrow F(\omega)\) 实偶
-- \(f(t)\) 实奇 \(\Rightarrow F(\omega)\) 纯虚奇
-- \(f(t)\) 虚偶 \(\Rightarrow F(\omega)\) 虚偶
-- \(f(t)\) 虚奇 \(\Rightarrow F(\omega)\) 实奇
-
+\begin{align*}
+  &F(\omega)=\int_{-\infty}^{\infty} f(t) e^{-j \omega t} dt
+  \\
+  &f(t)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} F(\omega) e^{j \omega t} d \omega
+\end{align*}
+\subsection{重要性质}
+\begin{align*}
+&\text{1.线性：}af(t)+bg(t) \rightarrow aF(j\omega)+bG(j\omega)
+\\
+&\text{2.时移：}f(t-t_{0}) \rightarrow F(j\omega) e^{-j \omega t_{0}}
+\\
+&\text{3.频移：}f(t) e^{j \omega_{0} t} \rightarrow F(j(\omega-\omega_{0}))
+\\
+&\text{4.频域扩展：}f(a t) \rightarrow \frac{1}{|a|} F\left(\frac{\omega}{a}\right)
+\\
+&\text{5.对偶性：}F(t) \rightarrow 2 \pi f(-\omega)
+\\
+&\text{6. 时域微分：}\frac{d^{n} f(t)}{d t^{n}} \rightarrow (j\omega)^{n}F(\omega)
+\\
+&\text{7. 频域微分：}t^{n} f(t) \rightarrow j^{n} \frac{d^{n} F(\omega)}{d \omega^{n}}
+\\
+&\text{8. 时域积分：}\int_{-\infty}^{t} f(\tau) d \tau=\frac{F(\omega)}{j \omega}+\pi F(0) \delta(\omega)
+\\
+&\text{9. 时域卷积：}
+\\
+&f(t) * g(t)=F(\omega) G(\omega)
+\\
+&\text{10. 频域卷积：}f(t) g(t)=\frac{1}{2 \pi} F(\omega) * G(\omega)
+\\
+&\text{11. 帕塞瓦尔定理：}
+\\
+&\int_{-\infty}^{\infty}|f(t)|^{2} dt=\frac{1}{2 \pi} \int_{-\infty}^{\infty}|F(\omega)|^{2} d \omega
+\\
+&\text{12. 共轭对称性：} 
+\\
+&f(t) = \text{Re}\{f(t)\} \Rightarrow F(-\omega)=F^{*}(\omega)
+\\
+&f(t)\text{实偶} \Rightarrow F(\omega)\text{实偶}
+\\
+&f(t)\text{实奇} \Rightarrow F(\omega)\text{纯虚奇}
+\\
+&f(t)\text{虚偶} \Rightarrow F(\omega)\text{虚偶}
+\\
+&f(t)\text{虚奇} \Rightarrow F(\omega)\text{实奇}
+\end{align*}
 \subsection{奇偶分解}
-- 偶部：\(f_{e}(t)=\frac{f(t)+f(-t)}{2} \Leftrightarrow F_{e}(\omega)=\text{Re}\{F(\omega)\}\)
-- 奇部：\(f_{o}(t)=\frac{f(t)-f(-t)}{2} \Leftrightarrow F_{o}(\omega)=j \text{Im}\{F(\omega)\}\)
-- 关系：\(f(t)=f_{e}(t)+f_{o}(t)\)，\(F(\omega)=F_{e}(\omega)+F_{o}(\omega)\)
-
-\subsection{能量与功率}
-- 能量信号：\(E=\int_{-\infty}^{\infty}|f(t)|^{2} dt=\frac{1}{2 \pi} \int_{-\infty}^{\infty}|F(\omega)|^{2} d \omega\)
-- 功率信号（周期）：\(P=\frac{1}{T} \int_{T}|f(t)|^{2} dt=\sum_{n=-\infty}^{\infty}|c_{n}|^{2}\)（\(c_n\) 为傅里叶系数）
-- 平均功率：\(P=\lim _{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2}|f(t)|^{2} dt\)
-
+\begin{align*}
+&f_{e}(t)=\frac{f(t)+f(-t)}{2} \Leftrightarrow F_{e}(\omega)=\text{Re}\{F(\omega)\}
+\\
+&f_{o}(t)=\frac{f(t)-f(-t)}{2} \Leftrightarrow F_{o}(\omega)=j \text{Im}\{F(\omega)\}
+\\
+&f(t)=f_{e}(t)+f_{o}(t),F(\omega)=F_{e}(\omega)+F_{o}(\omega)
+\end{align*}
 \subsection{常见傅里叶变换对}
-\[
-\begin{aligned}
+\begin{align*}
 \delta(t) &\leftrightarrow 1 \\
 1 &\leftrightarrow 2 \pi \delta(\omega) \\
 e^{j \omega_{0} t} &\leftrightarrow 2 \pi \delta(\omega-\omega_{0}) \\
@@ -102,268 +126,280 @@ u(t) &\leftrightarrow \pi \delta(\omega)+\frac{1}{j \omega} \\
 \text{sinc}(t)=\frac{\sin(\pi t)}{\pi t} &\leftrightarrow \text{rect}\left(\frac{\omega}{2 \pi}\right) \\
 \text{tri}\left(\frac{t}{\tau}\right) &\leftrightarrow \tau \cdot \frac{\sin^{2}(\omega \tau/2)}{(\omega \tau/2)^{2}} \\
 \sum_{n=-\infty}^{\infty} \delta(t-n T) &\leftrightarrow \frac{2 \pi}{T} \sum_{k=-\infty}^{\infty} \delta(\omega-k \omega_{0})
-\end{aligned}
-\]
-
+\end{align*}
 \subsection{周期信号的傅里叶变换}
-- 方法一（傅里叶级数）：若 \(f(t)=\sum_{n=-\infty}^{\infty} c_{n} e^{j n \omega_{0} t}\)，则
-  \[
-  F(\omega)=2 \pi \sum_{n=-\infty}^{\infty} c_{n} \delta(\omega-n \omega_{0})
-  \]
-- 方法二（单周期信号法）：若 \(f(t)=\sum_{k=-\infty}^{\infty} f_{0}(t-k T)\)，则
-  \[
+\begin{align*}
+&\text{若}f(t)=\sum_{n=-\infty}^{\infty} {c_n} e^{j n \omega_{0} t}
+\\
+&\text{则}F(\omega)=2 \pi \sum_{n=-\infty}^{\infty} c_{n} \delta(\omega-n \omega_{0})
+\\
+&\text{若}f(t)=\sum_{k=-\infty}^{\infty} f_{0}(t-k T)
+\\
+&\text{则}
   F(\omega)=F_{0}(\omega) \cdot \frac{2 \pi}{T} \sum_{n=-\infty}^{\infty} \delta(\omega-n \omega_{0})
-  \]
-  其中 \(c_{n}=\frac{1}{T} F_{0}(n \omega_{0})\)
+\\
+&\text{其中}c_{n}=\frac{1}{T} F_{0}(n \omega_{0})
+\end{align*}
 
 \section{离散时间傅里叶变换(DTFT)}
 \subsection{定义}
-- 正变换：
-  \[
-  X(e^{j \omega})=\mathcal{F}_{d}[x[n]]=\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n}
-  \]
-- 逆变换：
-  \[
-  x[n]=\mathcal{F}_{d}^{-1}[X(e^{j \omega})]=\frac{1}{2 \pi} \int_{-\pi}^{\pi} X(e^{j \omega}) e^{j \omega n} d \omega
-  \]
+\begin{align*}
+&X(e^{j \omega})=\mathcal{F}_{d}[x[n]]=\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n} \\
+&x[n]=\mathcal{F}_{d}^{-1}[X(e^{j \omega})]=\frac{1}{2 \pi} \int_{-\pi}^{\pi} X(e^{j \omega}) e^{j \omega n} d \omega
+\end{align*}
 
 \subsection{主要性质}
-- 线性性：\(\mathcal{F}_{d}[a x[n]+b y[n]]=a X(e^{j \omega})+b Y(e^{j \omega})\)
-- 时移性：\(\mathcal{F}_{d}[x[n-n_{0}]]=e^{-j \omega n_{0}} X(e^{j \omega})\)
-- 频移性：\(\mathcal{F}_{d}[e^{j \omega_{0} n} x[n]]=X(e^{j(\omega-\omega_{0})})\)
-- 周期性：\(X(e^{j(\omega+2 \pi)})=X(e^{j \omega})\)
-- 共轭对称性：若 \(x[n]\) 实，则 \(X(e^{-j \omega})=X^{*}(e^{j \omega})\)
-- 频域微分：\(\mathcal{F}_{d}[n x[n]]=j \frac{d X(e^{j \omega})}{d \omega}\)
-- 时域扩展：设 \(x_{k}[n]=\begin{cases}x[n/k] & k|n \\ 0 & \text{其他}\end{cases}\)，则 \(X_{k}(e^{j \omega})=X(e^{j k \omega})\)
-- 卷积性：\(\mathcal{F}_{d}[x[n] * y[n]]=X(e^{j \omega}) Y(e^{j \omega})\)
-- 调制性：\(\mathcal{F}_{d}[x[n] y[n]]=\frac{1}{2 \pi} X(e^{j \omega}) * Y(e^{j \omega})\)
+\begin{align*}
+&\text{1. 线性性：}\mathcal{F}_{d}[a x[n]+b y[n]]=a X(e^{j \omega})+b Y(e^{j \omega}) \\
+&\text{2. 时移性：}\mathcal{F}_{d}[x[n-n_{0}]]=e^{-j \omega n_{0}} X(e^{j \omega}) \\
+&\text{3. 频移性：}\mathcal{F}_{d}[e^{j \omega_{0} n} x[n]]=X(e^{j(\omega-\omega_{0})}) \\
+&\text{4. 周期性：}X(e^{j(\omega+2 \pi)})=X(e^{j \omega}) \\
+&\text{5. 共轭对称性：若 }x[n]\text{ 实，则 }X(e^{-j \omega})=X^{*}(e^{j \omega}) \\
+&\text{6. 频域微分：}\mathcal{F}_{d}[n x[n]]=j \frac{d X(e^{j \omega})}{d \omega} \\
+&\text{7. 时域扩展：设 }x_{k}[n]=\begin{cases}x[n/k] & k|n \\ 0 & \text{其他}\end{cases}\text{，则 }X_{k}(e^{j \omega})=X(e^{j k \omega}) \\
+&\text{8. 卷积性：}\mathcal{F}_{d}[x[n] * y[n]]=X(e^{j \omega}) Y(e^{j \omega}) \\
+&\text{9. 调制性：}\mathcal{F}_{d}[x[n] y[n]]=\frac{1}{2 \pi} X(e^{j \omega}) * Y(e^{j \omega})
+\end{align*}
 
 \subsection{奇偶虚实性}
-- \(x[n]\) 实偶 \(\Rightarrow X(e^{j \omega})\) 实偶
-- \(x[n]\) 实奇 \(\Rightarrow X(e^{j \omega})\) 纯虚奇
-- \(x[n]\) 虚偶 \(\Rightarrow X(e^{j \omega})\) 虚偶
-- \(x[n]\) 虚奇 \(\Rightarrow X(e^{j \omega})\) 实奇
+\begin{align*}
+&x[n] \text{ 实偶 } \Rightarrow X(e^{j \omega}) \text{ 实偶} \\
+&x[n] \text{ 实奇 } \Rightarrow X(e^{j \omega}) \text{ 纯虚奇} \\
+&x[n] \text{ 虚偶 } \Rightarrow X(e^{j \omega}) \text{ 虚偶} \\
+&x[n] \text{ 虚奇 } \Rightarrow X(e^{j \omega}) \text{ 实奇}
+\end{align*}
 
 \subsection{常见DTFT变换对}
-\[
-\begin{aligned}
-\delta[n] &\leftrightarrow 1 \\
-\delta[n-n_{0}] &\leftrightarrow e^{-j \omega n_{0}} \\
-a^{n} u[n] &\leftrightarrow \frac{1}{1-a e^{-j \omega}} \quad (|a|<1) \\
-u[n] &\leftrightarrow \frac{1}{1-e^{-j \omega}}+\pi \sum_{k=-\infty}^{\infty} \delta(\omega-2 \pi k) \\
-\text{rect}_{N}[n] &\leftrightarrow \frac{\sin(\omega N/2)}{\sin(\omega/2)} e^{-j \omega(N-1)/2}
-\end{aligned}
-\]
+\begin{align*}
+&\delta[n] \leftrightarrow 1 \\
+&\delta[n-n_{0}] \leftrightarrow e^{-j \omega n_{0}} \\
+&a^{n} u[n] \leftrightarrow \frac{1}{1-a e^{-j \omega}} \quad (|a|<1) \\
+&u[n] \leftrightarrow \frac{1}{1-e^{-j \omega}}+\pi \sum_{k=-\infty}^{\infty} \delta(\omega-2 \pi k) \\
+&\text{rect}_{N}[n] \leftrightarrow \frac{\sin(\omega N/2)}{\sin(\omega/2)} e^{-j \omega(N-1)/2}
+\end{align*}
 
 \section{拉普拉斯变换（双边）}
 \subsection{定义}
-\[
-F(s)=\mathcal{L}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-s t} dt, \quad s=\sigma+j \omega
-\]
+\begin{align*}
+&F(s)=\mathcal{L}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-s t} dt, \quad s=\sigma+j \omega
+\end{align*}
 
 \subsection{主要性质}
-- 线性性：\(\mathcal{L}[a f(t)+b g(t)]=a F(s)+b G(s)\)，ROC至少为 \(R_1 \cap R_2\)
-- 时移性：\(\mathcal{L}[f(t-t_{0})]=e^{-s t_{0}} F(s)\)
-- 频移性：\(\mathcal{L}[e^{-a t} f(t)]=F(s+a)\)，ROC：\(\text{Re}(s+a) \in R\)
-- 尺度变换：\(\mathcal{L}[f(a t)]=\frac{1}{|a|} F\left(\frac{s}{a}\right)\)，ROC：\(\frac{s}{a} \in R\)
-- 时域微分：\(\mathcal{L}[f'(t)]=s F(s)\)，ROC至少为 \(R\)
-- \(s\) 域微分：\(\mathcal{L}[t f(t)]=-\frac{d F(s)}{d s}\)，ROC：\(R\)
-- 积分性：\(\mathcal{L}\left[\int_{-\infty}^{t} f(\tau) d \tau\right]=\frac{F(s)}{s}\)，ROC至少为 \(R \cap \{\text{Re}(s)>0\}\)
-- 卷积性：\(\mathcal{L}[f(t) * g(t)]=F(s) G(s)\)，ROC至少为 \(R_1 \cap R_2\)
-- 初值定理：\(f(0^+)=\lim_{s \to \infty} s F(s)\)（因果信号）
-- 终值定理：\(\lim_{t \to \infty} f(t)=\lim_{s \to 0} s F(s)\)（极点在左半平面或原点）
+\begin{align*}
+&\text{1. 线性性：}\mathcal{L}[a f(t)+b g(t)]=a F(s)+b G(s)\text{，ROC至少为 }R_1 \cap R_2 \\
+&\text{2. 时移性：}\mathcal{L}[f(t-t_{0})]=e^{-s t_{0}} F(s) \\
+&\text{3. 频移性：}\mathcal{L}[e^{-a t} f(t)]=F(s+a)\text{，ROC：}\text{Re}(s+a) \in R \\
+&\text{4. 尺度变换：}\mathcal{L}[f(a t)]=\frac{1}{|a|} F\left(\frac{s}{a}\right)\text{，ROC：}\frac{s}{a} \in R \\
+&\text{5. 时域微分：}\mathcal{L}[f'(t)]=s F(s)\text{，ROC至少为 }R \\
+&\text{6. }s\text{ 域微分：}\mathcal{L}[t f(t)]=-\frac{d F(s)}{d s}\text{，ROC：}R \\
+&\text{7. 积分性：}\mathcal{L}\left[\int_{-\infty}^{t} f(\tau) d \tau\right]=\frac{F(s)}{s}\text{，ROC至少为 }R \cap \{\text{Re}(s)>0\} \\
+&\text{8. 卷积性：}\mathcal{L}[f(t) * g(t)]=F(s) G(s)\text{，ROC至少为 }R_1 \cap R_2 \\
+&\text{9. 初值定理：}f(0^+)=\lim_{s \to \infty} s F(s)\text{（因果信号）} \\
+&\text{10. 终值定理：}\lim_{t \to \infty} f(t)=\lim_{s \to 0} s F(s)\text{（极点在左半平面或原点）}
+\end{align*}
 
 \subsection{常见拉普拉斯变换对}
-\[
-\begin{aligned}
-\delta(t) &\leftrightarrow 1 \quad (\text{全} \, s \, \text{平面}) \\
-u(t) &\leftrightarrow \frac{1}{s} \quad (\text{Re}(s)>0) \\
--u(-t) &\leftrightarrow \frac{1}{s} \quad (\text{Re}(s)<0) \\
-e^{-a t} u(t) &\leftrightarrow \frac{1}{s+a} \quad (\text{Re}(s)>-a) \\
--e^{-a t} u(-t) &\leftrightarrow \frac{1}{s+a} \quad (\text{Re}(s)<-a) \\
-t e^{-a t} u(t) &\leftrightarrow \frac{1}{(s+a)^2} \quad (\text{Re}(s)>-a) \\
--t e^{-a t} u(-t) &\leftrightarrow \frac{1}{(s+a)^2} \quad (\text{Re}(s)<-a) \\
-e^{-a|t|} &\leftrightarrow \frac{2 a}{s^2 - a^2} \quad (-a<\text{Re}(s)<a) \\
-t^n u(t) &\leftrightarrow \frac{n!}{s^{n+1}} \quad (\text{Re}(s)>0)
-\end{aligned}
-\]
+\begin{align*}
+&\delta(t) \leftrightarrow 1 \quad (\text{全} \, s \, \text{平面}) \\
+&u(t) \leftrightarrow \frac{1}{s} \quad (\text{Re}(s)>0) \\
+&-u(-t) \leftrightarrow \frac{1}{s} \quad (\text{Re}(s)<0) \\
+&e^{-a t} u(t) \leftrightarrow \frac{1}{s+a} \quad (\text{Re}(s)>-a) \\
+&-e^{-a t} u(-t) \leftrightarrow \frac{1}{s+a} \quad (\text{Re}(s)<-a) \\
+&t e^{-a t} u(t) \leftrightarrow \frac{1}{(s+a)^2} \quad (\text{Re}(s)>-a) \\
+&-t e^{-a t} u(-t) \leftrightarrow \frac{1}{(s+a)^2} \quad (\text{Re}(s)<-a) \\
+&e^{-a|t|} \leftrightarrow \frac{2 a}{s^2 - a^2} \quad (-a<\text{Re}(s)<a) \\
+&t^n u(t) \leftrightarrow \frac{n!}{s^{n+1}} \quad (\text{Re}(s)>0)
+\end{align*}
 
 \section{z变换}
 \subsection{定义}
-\[
-X(z)=\mathcal{Z}[x[n]]=\sum_{n=-\infty}^{\infty} x[n] z^{-n}
-\]
+\begin{align*}
+&X(z)=\mathcal{Z}[x[n]]=\sum_{n=-\infty}^{\infty} x[n] z^{-n}
+\end{align*}
 
 \subsection{主要性质}
-- 线性性：\(\mathcal{Z}[a x[n]+b y[n]]=a X(z)+b Y(z)\)，ROC至少为 \(R_1 \cap R_2\)
-- 时移性：\(\mathcal{Z}[x[n-n_{0}]]=z^{-n_{0}} X(z)\)，ROC：\(R\)（可能除去 \(z=0\) 或 \(z=\infty\)）
-- 尺度变换：\(\mathcal{Z}[a^n x[n]]=X\left(\frac{z}{a}\right)\)，ROC：\(|z/a| \in R\)
-- \(z\) 域微分：\(\mathcal{Z}[n x[n]]=-z \frac{d X(z)}{d z}\)，ROC：\(R\)
-- 时域卷积：\(\mathcal{Z}[x[n] * y[n]]=X(z) Y(z)\)，ROC至少为 \(R_1 \cap R_2\)
-- 差分性质：\(\mathcal{Z}[x[n]-x[n-1]]=(1-z^{-1}) X(z)\)，ROC至少为 \(R \cap \{z \neq 0\}\)
-- 累加性质：\(\mathcal{Z}\left[\sum_{k=-\infty}^{n} x[k]\right]=\frac{X(z)}{1-z^{-1}}\)，ROC至少为 \(R \cap \{|z|>1\}\)
-- 初值定理：\(x[0]=\lim_{z \to \infty} X(z)\)（因果序列）
-- 终值定理：\(\lim_{n \to \infty} x[n]=\lim_{z \to 1} (z-1) X(z)\)（极点在单位圆内或 \(z=1\)）
+\begin{align*}
+&\text{1. 线性性：}\mathcal{Z}[a x[n]+b y[n]]=a X(z)+b Y(z)\text{，ROC至少为 }R_1 \cap R_2 \\
+&\text{2. 时移性：}\mathcal{Z}[x[n-n_{0}]]=z^{-n_{0}} X(z)\text{，ROC：}R\text{（可能除去 }z=0\text{ 或 }z=\infty\text{）} \\
+&\text{3. 尺度变换：}\mathcal{Z}[a^n x[n]]=X\left(\frac{z}{a}\right)\text{，ROC：}|z/a| \in R \\
+&\text{4. }z\text{ 域微分：}\mathcal{Z}[n x[n]]=-z \frac{d X(z)}{d z}\text{，ROC：}R \\
+&\text{5. 时域卷积：}\mathcal{Z}[x[n] * y[n]]=X(z) Y(z)\text{，ROC至少为 }R_1 \cap R_2 \\
+&\text{6. 差分性质：}\mathcal{Z}[x[n]-x[n-1]]=(1-z^{-1}) X(z)\text{，ROC至少为 }R \cap \{z \neq 0\} \\
+&\text{7. 累加性质：}\mathcal{Z}\left[\sum_{k=-\infty}^{n} x[k]\right]=\frac{X(z)}{1-z^{-1}}\text{，ROC至少为 }R \cap \{|z|>1\} \\
+&\text{8. 初值定理：}x[0]=\lim_{z \to \infty} X(z)\text{（因果序列）} \\
+&\text{9. 终值定理：}\lim_{n \to \infty} x[n]=\lim_{z \to 1} (z-1) X(z)\text{（极点在单位圆内或 }z=1\text{）}
+\end{align*}
 
 \subsection{常见z变换对}
-\[
-\begin{aligned}
-\delta[n] &\leftrightarrow 1 \quad (\text{全} \, z \, \text{平面}) \\
-u[n] &\leftrightarrow \frac{z}{z-1} \quad (|z|>1) \\
--u[-n-1] &\leftrightarrow \frac{z}{z-1} \quad (|z|<1) \\
-a^n u[n] &\leftrightarrow \frac{z}{z-a} \quad (|z|>|a|) \\
--a^n u[-n-1] &\leftrightarrow \frac{z}{z-a} \quad (|z|<<|a|) \\
-n a^n u[n] &\leftrightarrow \frac{a z}{(z-a)^2} \quad (|z|>|a|) \\
--n a^n u[-n-1] &\leftrightarrow \frac{a z}{(z-a)^2} \quad (|z|<<|a|) \\
-\cos(\omega_{0} n) u[n] &\leftrightarrow \frac{z(z-\cos\omega_{0})}{z^2 - 2 z \cos\omega_{0} + 1} \\
-\sin(\omega_{0} n) u[n] &\leftrightarrow \frac{z \sin\omega_{0}}{z^2 - 2 z \cos\omega_{0} + 1}
-\end{aligned}
-\]
+\begin{align*}
+&\delta[n] \leftrightarrow 1 \quad (\text{全} \, z \, \text{平面}) \\
+&u[n] \leftrightarrow \frac{z}{z-1} \quad (|z|>1) \\
+&-u[-n-1] \leftrightarrow \frac{z}{z-1} \quad (|z|<1) \\
+&a^n u[n] \leftrightarrow \frac{z}{z-a} \quad (|z|>|a|) \\
+&-a^n u[-n-1] \leftrightarrow \frac{z}{z-a} \quad (|z|<<|a|) \\
+&n a^n u[n] \leftrightarrow \frac{a z}{(z-a)^2} \quad (|z|>|a|) \\
+&-n a^n u[-n-1] \leftrightarrow \frac{a z}{(z-a)^2} \quad (|z|<<|a|) \\
+&\cos(\omega_{0} n) u[n] \leftrightarrow \frac{z(z-\cos\omega_{0})}{z^2 - 2 z \cos\omega_{0} + 1} \\
+&\sin(\omega_{0} n) u[n] \leftrightarrow \frac{z \sin\omega_{0}}{z^2 - 2 z \cos\omega_{0} + 1}
+\end{align*}
 
 \section{连续时间LTI系统分析}
 \subsection{系统函数}
-\[
-H(s)=\frac{Y(s)}{X(s)}=\mathcal{L}[h(t)]
-\]
+\begin{align*}
+&H(s)=\frac{Y(s)}{X(s)}=\mathcal{L}[h(t)]
+\end{align*}
 
 \subsection{稳定性判据}
-- BIBO稳定：所有极点在左半平面（\(\text{Re}(p_j)<0\)）
-- 临界稳定：极点在虚轴上
-- 不稳定：至少一个极点在右半平面（\(\text{Re}(p_j)>0\)）
+\begin{align*}
+&\text{1. BIBO稳定：所有极点在左半平面（}\text{Re}(p_j)<0\text{）} \\
+&\text{2. 临界稳定：极点在虚轴上} \\
+&\text{3. 不稳定：至少一个极点在右半平面（}\text{Re}(p_j)>0\text{）}
+\end{align*}
 
 \subsection{频率响应}
-\[
-H(j\omega)=H(s)\bigg|_{s=j\omega}
-\]
-- 幅频特性：\(|H(j\omega)|\)
-- 相频特性：\(\angle H(j\omega)\)
+\begin{align*}
+&H(j\omega)=H(s)\bigg|_{s=j\omega} \\
+&\text{幅频特性：}|H(j\omega)| \\
+&\text{相频特性：}\angle H(j\omega)
+\end{align*}
 
 \subsection{无失真传输条件}
-\[
-y(t)=K x(t-t_d)
-\]
-- 幅频条件：\(|H(j\omega)|=K\)（常数）
-- 相频条件：\(\angle H(j\omega)=-\omega t_d\)
-- 理想频率响应：\(H(j\omega)=K e^{-j\omega t_d}\)
+\begin{align*}
+&y(t)=K x(t-t_d) \\
+&\text{幅频条件：}|H(j\omega)|=K\text{（常数）} \\
+&\text{相频条件：}\angle H(j\omega)=-\omega t_d \\
+&\text{理想频率响应：}H(j\omega)=K e^{-j\omega t_d}
+\end{align*}
 
 \subsection{群时延与相时延}
-- 群时延（包络时延）：\(\tau_g(\omega)=-\frac{d \theta(\omega)}{d \omega}\)（\(\theta(\omega)=\angle H(j\omega)\)）
-- 相时延（载波时延）：\(\tau_p(\omega)=-\frac{\theta(\omega)}{\omega}\)
-- 线性相位时：\(\tau_g=\tau_p=t_d\)
+\begin{align*}
+&\text{群时延（包络时延）：}\tau_g(\omega)=-\frac{d \theta(\omega)}{d \omega}\text{（}\theta(\omega)=\angle H(j\omega)\text{）} \\
+&\text{相时延（载波时延）：}\tau_p(\omega)=-\frac{\theta(\omega)}{\omega} \\
+&\text{线性相位时：}\tau_g=\tau_p=t_d
+\end{align*}
 
 \subsection{部分分式展开}
-对于 \(H(s)=\frac{N(s)}{D(s)}\)，若极点 \(p_i\) 为单极点：
-\[
-H(s)=\sum_{i} \frac{r_i}{s-p_i}, \quad r_i=\left[(s-p_i) H(s)\right]_{s=p_i}
-\]
+对于 $H(s)=\frac{N(s)}{D(s)}$，若极点 $p_i$ 为单极点：
+\begin{align*}
+&H(s)=\sum_{i} \frac{r_i}{s-p_i}, \quad r_i=\left[(s-p_i) H(s)\right]_{s=p_i}
+\end{align*}
 
 \section{离散时间LTI系统分析}
 \subsection{系统函数}
-\[
-H(z)=\frac{Y(z)}{X(z)}=\mathcal{Z}[h[n]]
-\]
+\begin{align*}
+&H(z)=\frac{Y(z)}{X(z)}=\mathcal{Z}[h[n]]
+\end{align*}
 
 \subsection{稳定性判据}
-- BIBO稳定：所有极点在单位圆内（\(|p_j|<1\)）
-- 临界稳定：极点在单位圆上
-- 不稳定：至少一个极点在单位圆外（\(|p_j|>1\)）
+\begin{align*}
+&\text{1. BIBO稳定：所有极点在单位圆内（}|p_j|<1\text{）} \\
+&\text{2. 临界稳定：极点在单位圆上} \\
+&\text{3. 不稳定：至少一个极点在单位圆外（}|p_j|>1\text{）}
+\end{align*}
 
 \subsection{频率响应}
-\[
-H(e^{j\omega})=H(z)\bigg|_{z=e^{j\omega}}
-\]
+\begin{align*}
+&H(e^{j\omega})=H(z)\bigg|_{z=e^{j\omega}}
+\end{align*}
 
 \subsection{差分方程与系统函数关系}
-差分方程：
-\[
-\sum_{k=0}^{N} a_k y[n-k]=\sum_{k=0}^{M} b_k x[n-k]
-\]
-系统函数：
-\[
-H(z)=\frac{Y(z)}{X(z)}=\frac{\sum_{k=0}^{M} b_k z^{-k}}{\sum_{k=0}^{N} a_k z^{-k}}
-\]
+\begin{align*}
+&\text{差分方程：} \\
+&\sum_{k=0}^{N} a_k y[n-k]=\sum_{k=0}^{M} b_k x[n-k] \\
+&\text{系统函数：} \\
+&H(z)=\frac{Y(z)}{X(z)}=\frac{\sum_{k=0}^{M} b_k z^{-k}}{\sum_{k=0}^{N} a_k z^{-k}}
+\end{align*}
 
 \section{因果性与稳定性}
 \subsection{连续系统（s域）}
-- 因果性：\(H(s)\) 是真有理函数（分子次数≤分母次数），ROC为 \(\text{Re}(s)>\sigma_0\)
-- 稳定性：ROC包含虚轴，所有极点 \(\text{Re}(p)<0\)
-- 因果稳定：ROC为 \(\text{Re}(s)>\sigma_0\) 且 \(\sigma_0<0\)
+\begin{align*}
+&\text{1. 因果性：}H(s)\text{ 是真有理函数（分子次数}\le\text{分母次数），ROC为 }\text{Re}(s)>\sigma_0 \\
+&\text{2. 稳定性：ROC包含虚轴，所有极点 }\text{Re}(p)<0 \\
+&\text{3. 因果稳定：ROC为 }\text{Re}(s)>\sigma_0\text{ 且 }\sigma_0<0
+\end{align*}
 
 \subsection{离散系统（z域）}
-- 因果性：ROC为 \(|z|>r\)（某圆外）
-- 稳定性：ROC包含单位圆（\(|z|=1\)），所有极点 \(|p|<1\)
-- 因果稳定：ROC为 \(|z|>r\) 且 \(r<1\)
+\begin{align*}
+&\text{1. 因果性：ROC为 }|z|>r\text{（某圆外）} \\
+&\text{2. 稳定性：ROC包含单位圆（}|z|=1\text{），所有极点 }|p|<1 \\
+&\text{3. 因果稳定：ROC为 }|z|>r\text{ 且 }r<1
+\end{align*}
 
 \section{系统连接}
-- 串联：\(H(s)=H_1(s)H_2(s)\) 或 \(H(z)=H_1(z)H_2(z)\)
-- 并联：\(H(s)=H_1(s)+H_2(s)\) 或 \(H(z)=H_1(z)+H_2(z)\)
-- 反馈：\(H(s)=\frac{H_1(s)}{1 \pm H_1(s)H_2(s)}\) 或 \(H(z)=\frac{H_1(z)}{1 \pm H_1(z)H_2(z)}\)（+负反馈，-正反馈）
+\begin{align*}
+&\text{1. 串联：}H(s)=H_1(s)H_2(s)\text{ 或 }H(z)=H_1(z)H_2(z) \\
+&\text{2. 并联：}H(s)=H_1(s)+H_2(s)\text{ 或 }H(z)=H_1(z)+H_2(z) \\
+&\text{3. 反馈：}H(s)=\frac{H_1(s)}{1 \pm H_1(s)H_2(s)}\text{ 或 }H(z)=\frac{H_1(z)}{1 \pm H_1(z)H_2(z)}\text{（+负反馈，-正反馈）}
+\end{align*}
 
 \section{拉普拉斯与z变换类比}
 \subsection{稳定性对应}
-| 拉普拉斯变换（连续） | z变换（离散） |
-|----------------------|---------------|
-| 稳定：\(\text{Re}(s)<0\) | 稳定：\(|z|<1\) |
-| 临界稳定：虚轴 | 临界稳定：单位圆 |
-| 不稳定：\(\text{Re}(s)>0\) | 不稳定：\(|z|>1\) |
+\begin{align*}
+&\text{拉普拉斯变换（连续）} \quad & \text{z变换（离散）} \\
+&\text{稳定：}\text{Re}(s)<0 \quad & \text{稳定：}|z|<1 \\
+&\text{临界稳定：虚轴} \quad & \text{临界稳定：单位圆} \\
+&\text{不稳定：}\text{Re}(s)>0 \quad & \text{不稳定：}|z|>1
+\end{align*}
 
 \subsection{映射关系}
-\[
-z=e^{sT} \quad \text{或} \quad s=\frac{1}{T} \ln z
-\]
-- s左半平面 ↔ z单位圆内
-- s虚轴 ↔ z单位圆
-- s右半平面 ↔ z单位圆外
-- 主频带：\(-\pi/T < \omega < \pi/T\)
+\begin{align*}
+&z=e^{sT} \quad \text{或} \quad s=\frac{1}{T} \ln z \\
+&s\text{左半平面} \leftrightarrow z\text{单位圆内} \\
+&s\text{虚轴} \leftrightarrow z\text{单位圆} \\
+&s\text{右半平面} \leftrightarrow z\text{单位圆外} \\
+&\text{主频带：}-\pi/T < \omega < \pi/T
+\end{align*}
 
 \section{采样理论}
 \subsection{冲激串采样}
-- 采样信号：\(x_p(t)=x(t) \sum_{n=-\infty}^{\infty} \delta(t-nT)\)
-- 频域特性：
-  \[
-  X_p(j\omega)=\frac{1}{T} \sum_{k=-\infty}^{\infty} X(j(\omega-k\omega_s)), \quad \omega_s=\frac{2\pi}{T}
-  \]
-  （频谱周期延拓，周期为 \(\omega_s\)）
+\begin{align*}
+&\text{采样信号：}x_p(t)=x(t) \sum_{n=-\infty}^{\infty} \delta(t-nT) \\
+&\text{频域特性：} \\
+&X_p(j\omega)=\frac{1}{T} \sum_{k=-\infty}^{\infty} X(j(\omega-k\omega_s)), \quad \omega_s=\frac{2\pi}{T} \\
+&\text{（频谱周期延拓，周期为 }\omega_s\text{）}
+\end{align*}
 
 \subsection{奈奎斯特采样定理}
-- 条件：\(x(t)\) 带限于 \(\omega_M\)（\(X(j\omega)=0, |\omega|>\omega_M\)）
-- 采样频率要求：\(\omega_s \geq 2\omega_M\)（奈奎斯特率），可无失真恢复
+\begin{align*}
+&\text{条件：}x(t)\text{ 带限于 }\omega_M\text{（}X(j\omega)=0, |\omega|>\omega_M\text{）} \\
+&\text{采样频率要求：}\omega_s \geq 2\omega_M\text{（奈奎斯特率），可无失真恢复}
+\end{align*}
 
 \subsection{信号恢复}
-- 理想低通滤波器：
-  \[
-  H_r(j\omega)=\begin{cases}T & |\omega|<\omega_c \\ 0 & |\omega| \geq \omega_c\end{cases}, \quad \omega_M<\omega_c<\omega_s-\omega_M
-  \]
-- 零阶保持（ZOH）：
-  \[
-  x_0(t)=\sum_{n=-\infty}^{\infty} x(nT) \text{rect}\left(\frac{t-nT-T/2}{T}\right)
-  \]
-  频域：\(X_0(j\omega)=H_0(j\omega)X_p(j\omega)\)，其中 \(H_0(j\omega)=T \text{sinc}\left(\frac{\omega T}{2}\right) e^{-j\omega T/2}\)
-- 线性内插：
-  \[
-  x_1(t)=\sum_{n=-\infty}^{\infty} x(nT) \text{tri}\left(\frac{t-nT}{T}\right)
-  \]
-  频域：\(X_1(j\omega)=H_1(j\omega)X_p(j\omega)\)，其中 \(H_1(j\omega)=T \text{sinc}^2\left(\frac{\omega T}{2}\right)\)
+\begin{align*}
+&\text{1. 理想低通滤波器：} \\
+&H_r(j\omega)=\begin{cases}T & |\omega|<\omega_c \\ 0 & |\omega| \geq \omega_c\end{cases}, \quad \omega_M<\omega_c<\omega_s-\omega_M \\
+&\text{2. 零阶保持（ZOH）：} \\
+&x_0(t)=\sum_{n=-\infty}^{\infty} x(nT) \text{rect}\left(\frac{t-nT-T/2}{T}\right) \\
+&\text{频域：}X_0(j\omega)=H_0(j\omega)X_p(j\omega)\text{，其中 }H_0(j\omega)=T \text{sinc}\left(\frac{\omega T}{2}\right) e^{-j\omega T/2} \\
+&\text{3. 线性内插：} \\
+&x_1(t)=\sum_{n=-\infty}^{\infty} x(nT) \text{tri}\left(\frac{t-nT}{T}\right) \\
+&\text{频域：}X_1(j\omega)=H_1(j\omega)X_p(j\omega)\text{，其中 }H_1(j\omega)=T \text{sinc}^2\left(\frac{\omega T}{2}\right)
+\end{align*}
 
 \subsection{离散时间处理连续信号流程}
-1. C/D转换：\(x[n]=x_c(nT)\)，频域关系：
-   \[
-   X(e^{j\omega})=\frac{1}{T} \sum_{k=-\infty}^{\infty} X_c\left(j\frac{\omega-2\pi k}{T}\right)
-   \]
-2. 离散处理：\(Y(e^{j\omega})=H(e^{j\omega})X(e^{j\omega})\)，等效连续频率 \(\Omega=\omega T\)
-3. D/C转换：
-   - 理想重建：\(y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \frac{\sin(\pi(t-nT)/T)}{\pi(t-nT)/T}\)
-   - 零阶保持：\(y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \text{rect}\left(\frac{t-nT-T/2}{T}\right)\)
-4. 等效连续系统：\(H_{eff}(j\Omega)=H(e^{j\Omega/T})\)（\(|\Omega|<\pi/T\)）
+\begin{align*}
+&\text{1. C/D转换：}x[n]=x_c(nT)\text{，频域关系：} \\
+&X(e^{j\omega})=\frac{1}{T} \sum_{k=-\infty}^{\infty} X_c\left(j\frac{\omega-2\pi k}{T}\right) \\
+&\text{2. 离散处理：}Y(e^{j\omega})=H(e^{j\omega})X(e^{j\omega})\text{，等效连续频率 }\Omega=\omega T \\
+&\text{3. D/C转换：} \\
+&\quad \text{理想重建：}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \frac{\sin(\pi(t-nT)/T)}{\pi(t-nT)/T} \\
+&\quad \text{零阶保持：}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \text{rect}\left(\frac{t-nT-T/2}{T}\right) \\
+&\text{4. 等效连续系统：}H_{eff}(j\Omega)=H(e^{j\Omega/T})\text{（}|\Omega|<\pi/T\text{）}
+\end{align*}
 
 \subsection{混叠现象}
-- 产生：\(\omega_s<2\omega_M\) 时，频谱重叠，高频成分"伪装"成低频
-- 解决：预滤波（抗混叠滤波器）
+\begin{align*}
+&\text{产生：}\omega_s<2\omega_M\text{ 时，频谱重叠，高频成分"伪装"成低频} \\
+&\text{解决：预滤波（抗混叠滤波器）}
+\end{align*}
 
 \subsection{注意事项}
-1. 审题明确求解目标（单位冲激响应/单位阶跃响应等）
-2. 注意隐含的因果性和稳定性条件
-3. 拉普拉斯变换与z变换需明确收敛域
+\begin{align*}
+&\text{1. 审题明确求解目标（单位冲激响应/单位阶跃响应等）} \\
+&\text{2. 注意隐含的因果性和稳定性条件} \\
+&\text{3. 拉普拉斯变换与z变换需明确收敛域}
+\end{align*}
 
 \end{multicols*}
 \end{document}
