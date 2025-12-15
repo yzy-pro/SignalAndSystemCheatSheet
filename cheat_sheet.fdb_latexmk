@@ -1,24 +1,28 @@
 # Fdb version 4
-["xdvipdfmx"] 1765772596.29965 "cheat_sheet.xdv" "cheat_sheet.pdf" "cheat_sheet" 1765772596.52652 0
-  "cheat_sheet.xdv" 1765772596.24156 66620 1805c934763556592a91fde7abd3b39f "xelatex"
+["xdvipdfmx"] 1765779175.59222 "cheat_sheet.xdv" "cheat_sheet.pdf" "cheat_sheet" 1765779175.81233 0
+  "cheat_sheet.xdv" 1765779175.53185 62676 a14aa8cf3d9be69ce141296f44d124ab "xelatex"
   (generated)
   "cheat_sheet.pdf"
   (rewritten before read)
-["xelatex"] 1765772595.42212 "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" "cheat_sheet.xdv" "cheat_sheet" 1765772596.52478 0
-  "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" 1765772587.77862 17732 1e12ec15f0547969c156355b52488e39 ""
+["xelatex"] 1765779174.71393 "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" "cheat_sheet.xdv" "cheat_sheet" 1765779175.81047 0
+  "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" 1765779167.77391 17144 060e698997c11cb9c41065c9404ddb70 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1246382020 996 a18840b13b499c08ac2de96a99eda4bc ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm" 1246382020 924 9904cf1d39e9767e7a3622f2a125a565 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm" 1246382020 928 2dc8d444221b7a635bb58038579b861a ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm" 1246382020 908 2921f8a10601f252058503cc6570e581 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm" 1246382020 940 75ac932a52f80982a9f8ea75d03a34cf ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1246382020 940 228d6584342e91276bf566bcf9716b83 ""
-  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmex10.tfm" 1136768653 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
-  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm" 1136768653 1528 abec98dbc43e172678c11b3b9031252a ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm" 1136768653 1512 f21f83efb36853c0b70002322c1ab3ad ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmi9.tfm" 1136768653 1524 d89e2d087a9828407a196f428428ef4a ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
-  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr6.tfm" 1136768653 1300 b62933e007d01cfd073f79b963c01526 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr9.tfm" 1136768653 1292 6b21b9c2c7bebb38aa2273f7ca0fb3af ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm" 1136768653 1116 25a7bf822c58caf309a702ef79f4afbb ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1576625341 40635 c40361e206be584d448876bba8a64a3b ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty" 1576016050 33961 6b5c75130e435b2bfdb9f480a09a39f9 ""
@@ -170,9 +174,9 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1745761497 5854851 9405beb4c6cd273e0bd26aa5e146f3e8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1745761447.97632 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "cheat_sheet.aux" 1765772596.23957 6107 82b7d285228fc3b34ce1bd4820556069 "xelatex"
-  "cheat_sheet.out" 1765772596.24057 4963 407a754d2d495137e682525420ebb419 "xelatex"
-  "cheat_sheet.tex" 1765772587.77862 17732 1e12ec15f0547969c156355b52488e39 ""
+  "cheat_sheet.aux" 1765779175.53085 6216 471b11b42b669ae9e72835baf4041b0f "xelatex"
+  "cheat_sheet.out" 1765779175.53185 5038 1d4c06ea2cff8bafb4eca7b6e4dfd029 "xelatex"
+  "cheat_sheet.tex" 1765779167.77391 17144 060e698997c11cb9c41065c9404ddb70 ""
   (generated)
   "cheat_sheet.aux"
   "cheat_sheet.log"
