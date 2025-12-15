@@ -88,41 +88,41 @@
 \\
 &\text{3.频移：}f(t) e^{j \omega_{0} t} \rightarrow F(j(\omega-\omega_{0}))
 \\
-&\text{4.频域扩展：}f(a t) \rightarrow \frac{1}{|a|} F\left(\frac{\omega}{a}\right)
+&\text{4.频域扩展：}f(a t) \rightarrow \frac{1}{|a|} F\left(\frac{j\omega}{a}\right)
 \\
-&\text{5.对偶性：}F(t) \rightarrow 2 \pi f(-\omega)
+&\text{5.对偶性：}F(t) \rightarrow 2 \pi f(-j\omega)
 \\
-&\text{6. 时域微分：}\frac{d^{n} f(t)}{d t^{n}} \rightarrow (j\omega)^{n}F(\omega)
+&\text{6. 时域微分：}\frac{d^{n} f(t)}{d t^{n}} \rightarrow (j\omega)^{n}F(j\omega)
 \\
-&\text{7. 频域微分：}t^{n} f(t) \rightarrow j^{n} \frac{d^{n} F(\omega)}{d \omega^{n}}
+&\text{7. 频域微分：}t^{n} f(t) \rightarrow j^{n} \frac{d^{n} F(j\omega)}{d \omega^{n}}
 \\
 &\text{8. 时域积分：}
 \\
-&\int_{-\infty}^{t} f(\tau) d \tau \rightarrow \frac{F(\omega)}{j \omega}+\pi F(0) \delta(\omega)
+&\int_{-\infty}^{t} f(\tau) d \tau \rightarrow \frac{F(j\omega)}{j \omega}+\pi F(0) \delta(\omega)
 \\
 &\text{9. 时域卷积：}
 \\
-&f(t) * g(t) \rightarrow F(\omega) G(\omega)
+&f(t) * g(t) \rightarrow F(j\omega) G(j\omega)
 \\
 &\text{10. 频域卷积：}
 \\
-&f(t) g(t) \rightarrow \frac{1}{2 \pi} F(\omega) * G(\omega)
+&f(t) g(t) \rightarrow \frac{1}{2 \pi} F(j\omega) * G(j\omega)
 \\
 &\text{11. 帕塞瓦尔定理：}
 \\
-&\int_{-\infty}^{\infty}|f(t)|^{2} dt=\frac{1}{2 \pi} \int_{-\infty}^{\infty}|F(\omega)|^{2} d \omega
+&\int_{-\infty}^{\infty}|f(t)|^{2} dt=\frac{1}{2 \pi} \int_{-\infty}^{\infty}|F(j\omega)|^{2} d \omega
 \\
 &\text{12. 共轭对称性：} 
 \\
-&f(t) = \text{Re}\{f(t)\} \Rightarrow F(-\omega)=F^{*}(\omega)
+&f(t) = \text{Re}\{f(t)\} \Rightarrow F(-j\omega)=F^{*}(j\omega)
 \\
-&f(t)\text{实偶} \Rightarrow F(\omega)\text{实偶}
+&f(t)\text{实偶} \Rightarrow F(j\omega)\text{实偶}
 \\
-&f(t)\text{实奇} \Rightarrow F(\omega)\text{纯虚奇}
+&f(t)\text{实奇} \Rightarrow F(j\omega)\text{纯虚奇}
 \\
-&f(t)\text{虚偶} \Rightarrow F(\omega)\text{虚偶}
+&f(t)\text{虚偶} \Rightarrow F(j\omega)\text{虚偶}
 \\
-&f(t)\text{虚奇} \Rightarrow F(\omega)\text{实奇}
+&f(t)\text{虚奇} \Rightarrow F(j\omega)\text{实奇}
 \end{align*}
 \subsection{奇偶分解}
 \begin{align*}

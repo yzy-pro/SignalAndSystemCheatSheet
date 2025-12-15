@@ -1,11 +1,11 @@
 # Fdb version 4
-["xdvipdfmx"] 1765779849.13244 "cheat_sheet.xdv" "cheat_sheet.pdf" "cheat_sheet" 1765779849.34773 0
-  "cheat_sheet.xdv" 1765779849.073 62852 461b1ab812adfc9659747c96373ffaa0 "xelatex"
+["xdvipdfmx"] 1765780654.14457 "cheat_sheet.xdv" "cheat_sheet.pdf" "cheat_sheet" 1765780654.39476 0
+  "cheat_sheet.xdv" 1765780654.08439 62844 a4b494b9fa46fa6455090853a31b178f "xelatex"
   (generated)
   "cheat_sheet.pdf"
   (rewritten before read)
-["xelatex"] 1765779848.26519 "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" "cheat_sheet.xdv" "cheat_sheet" 1765779849.34591 0
-  "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" 1765779841.81507 17210 3d91f509f7039633e9b2188b25e65ebb ""
+["xelatex"] 1765780653.25142 "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" "cheat_sheet.xdv" "cheat_sheet" 1765780654.39273 0
+  "/home/yzy/code/SignalAndSystem/cheat_sheet.tex" 1765780647.03441 17226 bdbbe23fba9f38eed46c72544f6143cd ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -174,9 +174,9 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1745761497 5854851 9405beb4c6cd273e0bd26aa5e146f3e8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1745761447.97632 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "cheat_sheet.aux" 1765779849.072 6216 471b11b42b669ae9e72835baf4041b0f "xelatex"
-  "cheat_sheet.out" 1765779849.073 5038 1d4c06ea2cff8bafb4eca7b6e4dfd029 "xelatex"
-  "cheat_sheet.tex" 1765779841.81507 17210 3d91f509f7039633e9b2188b25e65ebb ""
+  "cheat_sheet.aux" 1765780654.08202 6216 471b11b42b669ae9e72835baf4041b0f "xelatex"
+  "cheat_sheet.out" 1765780654.08302 5038 1d4c06ea2cff8bafb4eca7b6e4dfd029 "xelatex"
+  "cheat_sheet.tex" 1765780647.03441 17226 bdbbe23fba9f38eed46c72544f6143cd ""
   (generated)
   "cheat_sheet.aux"
   "cheat_sheet.log"
