@@ -1,5 +1,7 @@
 \documentclass{article}
-\usepackage{amsmath,amssymb}
+\usepackage[fleqn]{amsmath}
+\setlength{\mathindent}{0pt}
+\usepackage{amssymb}
 \allowdisplaybreaks
 \usepackage{multicol}
 \usepackage{geometry}
@@ -39,16 +41,21 @@
 \end{align*}
 \subsection{重要性质}
 \begin{align*}
-  &1. \delta(at) = \frac{1}{|a|} \delta(t) \\
-&1. \text{若 } x_1(t) * x_2(t) = y(t) \text{,则 } \\
-&x_1(t - t_1) * x_2(t - t_2) = y(t - t_1 - t_2) \\
-&2. E \text{rect}\left(\frac{t}{\tau}\right)\text{自卷积}= E^2 \tau \text{tri}\left(\frac{t}{2\tau}\right)
+&1. \delta(at) = \frac{1}{|a|} \delta(t) 
 \\
-&3. \delta(t-t_{0}) * x(t)=x(t-t_{0}) \\
-&4. u(t-t_{0})* x(t)=\int_{-\infty}^{t-t_{0}} x(\tau) d \tau
+&2. \text{若 } x_1(t) * x_2(t) = y(t) \text{,则 } 
 \\
-&5. \delta'(t) x(t)= x(0)\delta'(t) - x'(0)\delta(t) \\
-&6. \delta'(t-t_{0}) * x(t)= - x'(t_{0})
+&x_1(t - t_1) * x_2(t - t_2) = y(t - t_1 - t_2) 
+\\
+&3. E \text{rect}\left(\frac{t}{\tau}\right)\text{自卷积}= E^2 \tau \text{tri}\left(\frac{t}{2\tau}\right)
+\\
+&4. \delta(t-t_{0}) * x(t)=x(t-t_{0}) 
+\\
+&5. u(t-t_{0})* x(t)=\int_{-\infty}^{t-t_{0}} x(\tau) d \tau
+\\
+&6. \delta'(t) x(t)= x(0)\delta'(t) - x'(0)\delta(t) 
+\\
+&7. \delta'(t-t_{0}) * x(t)= - x'(t_{0})
 \end{align*}
 
 \section{傅里叶级数}
@@ -71,7 +78,7 @@
 &\frac{1}{T} \int_{T}|f(t)|^{2} dt=\sum_{n=-\infty}^{\infty}\left|c_{n}\right|^{2}
 \end{align*}
 
-\section{傅里叶变换}
+\section{连续时间傅里叶变换}
 \subsection{定义}
 \begin{align*}
   &F(\omega)=\int_{-\infty}^{\infty} f(t) e^{-j \omega t} dt
@@ -128,15 +135,15 @@
 \begin{align*}
 &f_{e}(t)=\frac{f(t)+f(-t)}{2} \Leftrightarrow 
 \\
-&F_{e}(\omega)=\text{Re}\{F(\omega)\}
+&F_{e}(j\omega)=\text{Re}\{F(j\omega)\}
 \\
 &f_{o}(t)=\frac{f(t)-f(-t)}{2} \Leftrightarrow 
 \\
-&F_{o}(\omega)=j \text{Im}\{F(\omega)\}
+&F_{o}(j\omega)=j \text{Im}\{F(j\omega)\}
 \\
 &f(t)=f_{e}(t)+f_{o}(t),
 \\
-&F(\omega)=F_{e}(\omega)+F_{o}(\omega)
+&F(j\omega)=F_{e}(j\omega)+F_{o}(j\omega)
 \end{align*}
 \subsection{常见傅里叶变换对}
 \begin{align*}
@@ -178,7 +185,12 @@
 \\
 &\text{其中}c_{n}=\frac{1}{T} F_{0}(n \omega_{0})
 \end{align*}
-
+\subsection{本征函数}
+\begin{align*}
+&\text{LTI系统输入}x(t)=e^{j \omega_{0} t}
+\\
+&\text{输出}y(t)=H(j \omega_{0}) e^{j \omega_{0} t}
+\end{align*}
 \section{离散时间傅里叶变换(DTFT)}
 \subsection{定义}
 \begin{align*}
@@ -211,7 +223,7 @@
 &\delta[n-n_{0}] \leftrightarrow e^{-j \omega n_{0}} \\
 &a^{n} u[n] \leftrightarrow \frac{1}{1-a e^{-j \omega}} \quad (|a|<1) \\
 &u[n] \leftrightarrow \frac{1}{1-e^{-j \omega}}+\pi \sum_{k=-\infty}^{\infty} \delta(\omega-2 \pi k) \\
-&\text{rect}_{N}[n] \leftrightarrow \frac{\sin(\omega N/2)}{\sin(\omega/2)} e^{-j \omega(N-1)/2}
+&\text{rect}_{2N}[n] \leftrightarrow \frac{\sin(\omega (N + \frac{1}{2}))}{\sin(\omega/2)} 
 \end{align*}
 
 \section{拉普拉斯变换（双边）}
@@ -237,10 +249,11 @@
 \\
 &\text{，至少}R \cap \{\text{Re}(s)>0\} \\
 &\text{8. 卷积:}f(t) * g(t) \rightarrow F(s) G(s)\text{至少}R_1 \cap R_2 \\
-&\text{9. 初值：}f(0^+) = \lim_{s \to \infty} s F(s)\text{（因果信号）} \\
+&\text{9. 初值：}f(0^+) = \lim_{s \to \infty} s F(s) \\
 &\text{10. 终值：}\lim_{t \to \infty} f(t) = \lim_{s \to 0} s F(s)
 \\
-&\text{（极点在左半平面或原点）}
+&\text{（因果且$t = 0$时不包含奇异函数）}
+&\text{10. 实信号的s变换的零极点共轭出现}
 \end{align*}
 
 \subsection{常见拉普拉斯变换对}
@@ -256,6 +269,30 @@
 &t^n u(t) \leftrightarrow \frac{n!}{s^{n+1}} \quad (\text{Re}(s)>0)
 \end{align*}
 
+\subsection{因果性与稳定性}
+\begin{align*}
+&\text{1. 因果性：}H(s)
+\text{ 是真有理函数}
+\\
+&\text{（分子次数}\le\text{分母次数），ROC为 }
+\\
+&\text{Re}(s)>\sigma_0 \\
+&\text{2. 稳定性：ROC包含虚轴} \\
+&\text{3. 因果稳定：ROC为 }\text{Re}(s)>\sigma_0
+\\
+&\text{ 且 }\sigma_0<0
+\text{,所有极点 }\text{Re}(p)<0
+\end{align*}
+\subsection{单边性质}
+\begin{align*}
+&\text{时域微分：}\frac{d x(t)}{d t} \rightarrow s \mathcal{X}(s)-x(0^-) 
+\end{align*}
+\subsection{本征函数}
+\begin{align*}
+&\text{LTI系统输入}x(t)=e^{s_{0} t}
+\\
+&\text{输出}y(t)=H(s_{0}) e^{s_{0} t}
+\end{align*}
 \section{z变换}
 \subsection{定义}
 \begin{align*}
@@ -271,7 +308,8 @@
 \\
 &\text{，}R\text{（可能除去 }z=0\text{ 或 }z=\infty\text{）} 
 \\
-&\text{3.尺度变换：}a^n x[n]=X\left(\frac{z}{a}\right)\text{，}|z/a| \in R \\
+&\text{3.尺度变换：}a^n x[n]=X\left(\frac{z}{a}\right)\\
+&\text{，}|z/a| \in R \\
 &\text{4. }\text{z域微分：}n x[n]=-z \frac{d X(z)}{d z}\text{，}R \\
 &\text{5.时域卷积：}x[n] * y[n]=X(z) Y(z)
 \\
@@ -282,38 +320,65 @@
 &\text{7. 累加性质：}\sum_{k=-\infty}^{n} x[k]=\frac{X(z)}{1-z^{-1}}
 \\
 &\text{，至少}R \cap \{|z|>1\} \\
-&\text{8. 初值：}x[0]=\lim_{z \to \infty} X(z)\text{（因果序列）} \\
+&\text{8. 初值：}x[0]=\lim_{z \to \infty} X(z) \text{（因果信号）}\\
 &\text{9. 终值：}\lim_{n \to \infty} x[n]=\lim_{z \to 1} (z-1) X(z)
 \\
-&\text{（极点在单位圆内或 }z=1\text{）}
-\\
-&\text{10. 实信号的s变换的零极点共轭出现}
+&\text{（因果且$x(\infty)$存在且有限）}
 \end{align*}
 
 \subsection{常见z变换对}
 \begin{align*}
-&\delta[n] \leftrightarrow 1 \text{,全平面} \\
-&u[n] \leftrightarrow \frac{z}{z-1}\text{,}|z|>1 \\
-&-u[-n-1] \leftrightarrow \frac{z}{z-1}\text{,}|z|<1 \\
-&a^n u[n] \leftrightarrow \frac{z}{z-a} (|z|>|a|) \\
-&-a^n u[-n-1] \leftrightarrow \frac{z}{z-a} \text{,}|z|<|a| \\
-&n a^n u[n] \leftrightarrow \frac{a z}{(z-a)^2} \text{,}|z|>|a| \\
-&-n a^n u[-n-1] \leftrightarrow \frac{a z}{(z-a)^2} \text{,}|z|<|a| \\
-&\cos(\omega_{0} n) u[n] \leftrightarrow \frac{z(z-\cos\omega_{0})}{z^2 - 2 z \cos\omega_{0} + 1} \\
-&\sin(\omega_{0} n) u[n] \leftrightarrow \frac{z \sin\omega_{0}}{z^2 - 2 z \cos\omega_{0} + 1}
+&\delta[n] \leftrightarrow 1 \text{,全平面} 
 \end{align*}
-
+\begin{align*}
+&u[n] \leftrightarrow \frac{1}{1-z^{-1}}\text{,}|z|>1 \end{align*}
+\begin{align*}
+&-u[-n-1] \leftrightarrow \frac{1}{1-z^{-1}}\text{,}|z|<1 
+\end{align*}
+\begin{align*}
+&a^n u[n] \leftrightarrow \frac{1}{1-az^{-1}} \text{,}|z|>|a|
+\end{align*}
+\begin{align*}
+&-a^n u[-n-1] \leftrightarrow \frac{1}{1-az^{-1}} \text{,}|z|<|a| 
+\end{align*}
+\begin{align*}
+&n a^n u[n] \leftrightarrow \frac{a z^{-1}}{(1-az^{-1})^2} \text{,}|z|>|a| 
+\end{align*}
+\begin{align*}
+&-n a^n u[-n-1] \leftrightarrow \frac{a z^{-1}}{(1-az^{-1})^2} \text{,}|z|<|a| 
+\end{align*}
+\begin{align*}
+&r^{n}\cos(\omega_{0} n) u[n] \\
+&\leftrightarrow \frac{1 - r\cos(\omega)z^{-1}}{1 - 2r\cos(\omega)z^{-1} + r^{2}z^{-2}} \text{,}|z|>|r| 
+\end{align*}
+\begin{align*}
+&r^{n}\cos(\omega_{0} n) u[n] \\
+&\leftrightarrow \frac{r\sin(\omega)z^{-1}}{1 - 2r\cos(\omega)z^{-1} + r^{2}z^{-2}} \text{,}|z|>|r|
+\end{align*}
+\subsection{因果性与稳定性}
+\begin{align*}
+&\text{1. 因果性：ROC为 }|z|>r\text{（某圆外）} \\
+&\text{2. 稳定性：ROC包含单位圆（}|z|=1\text{）} \\
+&\text{3. 因果稳定：ROC为 }|z|>r\text{ 且 }r<1
+\\
+&\text{所有极点}|p|<1
+\end{align*}
+\subsection{单边性质}
+\begin{align*}
+&\text{时间延迟}x[n-1] \rightarrow z^{-1} X(z) + x[-1]
+\\
+&\text{时移}x[n+1] \rightarrow z X(z) - z x[0]
+\end{align*}
+\subsection{本征函数}
+\begin{align*}
+&\text{LTI系统输入}x[n]={z_{0}}^{n}
+\\
+&\text{输出}y[n]=H(z_{0}) {z_{0}}^{n}
+\end{align*}
 \section{连续时间LTI系统分析}
 \subsection{系统函数}
 \begin{align*}
 &H(s)=\frac{Y(s)}{X(s)}=\mathcal{L}[h(t)]
-\end{align*}
-
-\subsection{稳定性判据}
-\begin{align*}
-&\text{1. 稳定：所有极点在左半平面} \\
-&\text{2. 临界稳定：极点在虚轴上} \\
-&\text{3. 不稳定：至少一个极点在右半平面}
 \end{align*}
 
 \subsection{频率响应}
@@ -341,61 +406,11 @@
 \subsection{部分分式展开}
 \begin{align*}
   &\text{
-对于 $H(s)=\frac{N(s)}{D(s)}$，若极点 $p_i$ 为单极点：}
+对于 $H(s)=\frac{N(s)}{D(s)}$，若极点} 
 \\
-&H(s)=\sum_{i} \frac{r_i}{s-p_i}, \\
+&\text{$p_i$ 为单极点：}
+H(s)=\sum_{i} \frac{r_i}{s-p_i}, \\
 & r_i=\left[(s-p_i) H(s)\right]_{s=p_i}
-\end{align*}
-
-\section{离散时间LTI系统分析}
-\subsection{系统函数}
-\begin{align*}
-&H(z)=\frac{Y(z)}{X(z)}=\mathcal{Z}[h[n]]
-\end{align*}
-
-\subsection{稳定性判据}
-\begin{align*}
-&\text{1. 稳定：所有极点在单位圆内} \\
-&\text{2. 临界稳定：极点在单位圆上} \\
-&\text{3. 不稳定：至少一个极点在单位圆外}
-\end{align*}
-
-\subsection{频率响应}
-\begin{align*}
-&H(e^{j\omega})=H(z)\bigg|_{z=e^{j\omega}}
-\end{align*}
-
-\subsection{差分方程与系统函数关系}
-\begin{align*}
-&\text{差分方程：} \\
-&\sum_{k=0}^{N} a_k y[n-k]=\sum_{k=0}^{M} b_k x[n-k] \\
-&\text{系统函数：} \\
-&H(z)=\frac{Y(z)}{X(z)}=\frac{\sum_{k=0}^{M} b_k z^{-k}}{\sum_{k=0}^{N} a_k z^{-k}}
-\end{align*}
-
-\section{因果性与稳定性}
-\subsection{连续系统（s域）}
-\begin{align*}
-&\text{1. 因果性：}H(s)
-\text{ 是真有理函数}
-\\
-&\text{（分子次数}\le\text{分母次数），ROC为 }
-\\
-&\text{Re}(s)>\sigma_0 \\
-&\text{2. 稳定性：ROC包含虚轴} \\
-&\text{3. 因果稳定：ROC为 }\text{Re}(s)>\sigma_0
-\\
-&\text{ 且 }\sigma_0<0
-\text{,所有极点 }\text{Re}(p)<0
-\end{align*}
-
-\subsection{离散系统（z域）}
-\begin{align*}
-&\text{1. 因果性：ROC为 }|z|>r\text{（某圆外）} \\
-&\text{2. 稳定性：ROC包含单位圆（}|z|=1\text{）} \\
-&\text{3. 因果稳定：ROC为 }|z|>r\text{ 且 }r<1
-\\
-&\text{所有极点}|p|<1
 \end{align*}
 
 \section{系统连接}
