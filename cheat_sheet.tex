@@ -59,11 +59,10 @@
 \end{align*}
 
 \section{傅里叶级数}
-连续周期信号：$f(t)=f(t+T)$，基波角频率 $\omega_{0}=\frac{2 \pi}{T}$
+$f(t)=f(t+T)$，$\omega_{0}=\frac{2 \pi}{T}$
 \subsection{定义}
 \begin{align*}
 &f(t)=\sum_{n=-\infty}^{\infty} c_{n} e^{j n \omega_{0} t} \\
-&\text{其中傅里叶系数：} \\
 &c_{n}=\frac{1}{T} \int_{T} f(t) e^{-j n \omega_{0} t} dt
 \end{align*}
 
@@ -107,13 +106,9 @@
 \\
 &\int_{-\infty}^{t} f(\tau) d \tau \rightarrow \frac{F(j\omega)}{j \omega}+\pi F(0) \delta(\omega)
 \\
-&\text{9. 时域卷积：}
+&\text{9. 卷积：}f(t) * g(t) \rightarrow F(j\omega) G(j\omega)
 \\
-&f(t) * g(t) \rightarrow F(j\omega) G(j\omega)
-\\
-&\text{10. 频域卷积：}
-\\
-&f(t) g(t) \rightarrow \frac{1}{2 \pi} F(j\omega) * G(j\omega)
+&\text{10. 乘积：}f(t) g(t) \rightarrow \frac{1}{2 \pi} F(j\omega) * G(j\omega)
 \\
 &\text{11. 帕塞瓦尔定理：}
 \\
@@ -185,12 +180,7 @@
 \\
 &\text{其中}c_{n}=\frac{1}{T} F_{0}(n \omega_{0})
 \end{align*}
-\subsection{本征函数}
-\begin{align*}
-&\text{LTI系统输入}x(t)=e^{j \omega_{0} t}
-\\
-&\text{输出}y(t)=H(j \omega_{0}) e^{j \omega_{0} t}
-\end{align*}
+
 \section{离散时间傅里叶变换(DTFT)}
 \subsection{定义}
 \begin{align*}
@@ -200,7 +190,7 @@
 
 \subsection{主要性质}
 \begin{align*}
-&\text{1. 线性：}a x[n]+b y[n] \rightarrow a X(e^{j \omega})+b Y(e^{j \omega}) \\
+&\mbox{\scriptsize $\displaystyle  \text{1. 线性：}a x[n]+b y[n] \rightarrow a X(e^{j \omega})+b Y(e^{j \omega}) $} \\
 &\text{2. 时移：}x[n-n_{0}] \rightarrow e^{-j \omega n_{0}} X(e^{j \omega}) \\
 &\text{3. 频移：}e^{j \omega_{0} n} x[n] \rightarrow X(e^{j(\omega-\omega_{0})}) \\
 &\text{4. 周期性：}X(e^{j(\omega+2 \pi)}) \rightarrow X(e^{j \omega}) \\
@@ -215,6 +205,14 @@
 &\text{则}X_{k}(e^{j \omega}) \rightarrow X(e^{j k \omega}) \\
 &\text{8. 卷积：}x[n] * y[n] \rightarrow X(e^{j \omega}) Y(e^{j \omega}) \\
 &\text{9. 调制：}x[n] y[n] \rightarrow \frac{1}{2 \pi} X(e^{j \omega}) * Y(e^{j \omega})
+\\
+&\text{10. 差分：}x[n] - x[n-1] \rightarrow 
+\\
+&(1 - e^{-j \omega}) X(e^{j \omega})
+\\
+&\text{11. 累加：}\sum_{k=-\infty}^{n} x[k] \rightarrow 
+\\
+&\frac{X(e^{j \omega})}{1 - e^{-j \omega}} + \pi X(1) \delta(\omega)
 \end{align*}
 
 \subsection{常见DTFT变换对}
@@ -224,6 +222,17 @@
 &a^{n} u[n] \leftrightarrow \frac{1}{1-a e^{-j \omega}} \quad (|a|<1) \\
 &u[n] \leftrightarrow \frac{1}{1-e^{-j \omega}}+\pi \sum_{k=-\infty}^{\infty} \delta(\omega-2 \pi k) \\
 &\text{rect}_{2N}[n] \leftrightarrow \frac{\sin(\omega (N + \frac{1}{2}))}{\sin(\omega/2)} 
+\\
+& \frac{\sin(Wn)}{\pi n},0<W<\pi\\
+& \leftrightarrow rect_{2W}[\omega]\text{,且以$2\pi$为周期}
+\\
+& \cos[\omega_{0} n] \leftrightarrow 
+\\
+&\mbox{\footnotesize $\displaystyle \pi\left[\sum_{k=-\infty}^{\infty} \delta(\omega-\omega_{0}-2 \pi k)+\delta(\omega+\omega_{0}-2 \pi k)\right]$}
+\\
+& \sin[\omega_{0} n] \leftrightarrow 
+\\
+&\mbox{\footnotesize $\displaystyle \frac{\pi}{j}\left[\sum_{k=-\infty}^{\infty} \delta(\omega-\omega_{0}-2 \pi k)-\delta(\omega+\omega_{0}-2 \pi k)\right]$}
 \end{align*}
 
 \section{拉普拉斯变换（双边）}
@@ -258,15 +267,29 @@
 
 \subsection{常见拉普拉斯变换对}
 \begin{align*}
-&\delta(t) \leftrightarrow 1 \quad (\text{全} \, s \, \text{平面}) \\
-&u(t) \leftrightarrow \frac{1}{s} \quad (\text{Re}(s)>0) \\
-&-u(-t) \leftrightarrow \frac{1}{s} \quad (\text{Re}(s)<0) \\
-&e^{-a t} u(t) \leftrightarrow \frac{1}{s+a} \quad (\text{Re}(s)>-a) \\
-&-e^{-a t} u(-t) \leftrightarrow \frac{1}{s+a} \quad (\text{Re}(s)<-a) \\
-&t e^{-a t} u(t) \leftrightarrow \frac{1}{(s+a)^2} \quad (\text{Re}(s)>-a) \\
-&-t e^{-a t} u(-t) \leftrightarrow \frac{1}{(s+a)^2} \quad (\text{Re}(s)<-a) \\
-&e^{-a|t|} \leftrightarrow \frac{2 a}{s^2 - a^2} \quad (-a<\text{Re}(s)<a) \\
-&t^n u(t) \leftrightarrow \frac{n!}{s^{n+1}} \quad (\text{Re}(s)>0)
+&\delta(t) \leftrightarrow 1 \text{,全平面}
+\\
+&u(t) \leftrightarrow \frac{1}{s} \text{,Re}(s)>0 
+\\
+&-u(-t) \leftrightarrow \frac{1}{s} \text{,Re}(s)<0
+\\
+&e^{-a t} u(t) \leftrightarrow \frac{1}{s+a} \text{,Re}(s)>-a 
+\\
+&-e^{-a t} u(-t) \leftrightarrow \frac{1}{s+a} \text{,Re}(s)<-a 
+\\
+&t e^{-a t} u(t) \leftrightarrow \frac{1}{(s+a)^2} \text{,Re}(s)>-a 
+\\
+&-t e^{-a t} u(-t) \leftrightarrow \frac{1}{(s+a)^2} \text{,Re}(s)<-a 
+\\
+&e^{-a|t|} \leftrightarrow \frac{2 a}{s^2 - a^2} \text{,}-a<\text{Re}(s)<a 
+\\
+&t^n u(t) \leftrightarrow \frac{n!}{s^{n+1}} \text{,Re}(s)>0
+\\
+&e^{-at}\sin(\omega_0 t) u(t) \leftrightarrow \frac{\omega_0}{(s+a)^2 + \omega_0^2} \\
+& \text{,Re}(s)>-a 
+\\
+&e^{-at}\cos(\omega_0 t) u(t) \leftrightarrow \frac{s+a}{(s+a)^2 + \omega_0^2} \\
+& \text{,Re}(s)>-a
 \end{align*}
 
 \subsection{因果性与稳定性}
@@ -398,7 +421,6 @@
 \begin{align*}
 &\text{群时延（包络时延）：}\tau_g(\omega)=-\frac{d \theta(\omega)}{d \omega}
 \\
-&\text{（}\theta(\omega)=\angle H(j\omega)\text{）} \\
 &\text{相时延（载波时延）：}\tau_p(\omega)=-\frac{\theta(\omega)}{\omega} \\
 &\text{线性相位时：}\tau_g=\tau_p=t_d
 \end{align*}
@@ -427,10 +449,13 @@ H(s)=\sum_{i} \frac{r_i}{s-p_i}, \\
 \section{拉普拉斯与z变换类比}
 \subsection{稳定性对应}
 \begin{align*}
-&\text{s变换（连续）}  & \text{z变换（离散）} \\
-&\text{稳定：}\text{Re}(s)<0  & \text{}|z|<1 \\
-&\text{临界稳定：虚轴}  & \text{单位圆} \\
-&\text{不稳定：}\text{Re}(s)>0  & \text{}|z|>1
+&  & \text{s变换} & & \text{z变换} 
+\\
+&\text{稳定} & \text{Re}(s)<0 & & \text{}|z|<1 
+\\
+&\text{临界稳定} & \text{虚轴} & & \text{单位圆} 
+\\
+&\text{不稳定} & \text{Re}(s)>0 & & \text{}|z|>1
 \end{align*}
 
 \subsection{映射关系}
@@ -446,47 +471,90 @@ H(s)=\sum_{i} \frac{r_i}{s-p_i}, \\
 \subsection{冲激串采样}
 \begin{align*}
 &\text{采样信号：}x_p(t)=x(t) \sum_{n=-\infty}^{\infty} \delta(t-nT) \\
-&X_p(j\omega)=\frac{1}{T} \sum_{k=-\infty}^{\infty} X(j(\omega-k\omega_s)), 
+&\mbox{\footnotesize $\displaystyle X_p(j\omega)=\frac{1}{T} \sum_{k=-\infty}^{\infty} X(j(\omega-k\omega_s)), 
+\omega_s=\frac{2\pi}{T} $}
 \\
-& \omega_s=\frac{2\pi}{T} \\
 &\text{（频谱周期延拓，周期为 }\omega_s\text{）}
 \end{align*}
 
 \subsection{奈奎斯特采样定理}
 \begin{align*}
 &x(t)\text{ 带限于 }\omega_M\text{（}X(j\omega)=0, |\omega|>\omega_M\text{）} \\
-&\text{则采样频率要求：}\omega_s \geq 2\omega_M\text{（奈奎斯特率）}
+&\text{采样频率要求}\omega_s \geq 2\omega_M\text{（奈奎斯特率）}
 \end{align*}
 
 \subsection{信号恢复}
 \begin{align*}
 &\text{1. 理想低通滤波器：} \\
-&H_r(j\omega)=\begin{cases}T & |\omega|<\omega_c \\ 0 & |\omega| \geq \omega_c\end{cases}, \quad \omega_M<\omega_c<\omega_s-\omega_M \\
+&H_r(j\omega)=\begin{cases}T & |\omega|<\omega_c \\ 0 & |\omega| \geq \omega_c\end{cases},
+\\
+&\omega_M<\omega_c<\omega_s-\omega_M \\
 &\text{2. 零阶保持（ZOH）：} \\
-&x_0(t)=\sum_{n=-\infty}^{\infty} x(nT) \text{rect}\left(\frac{t-nT-T/2}{T}\right) \\
-&\text{频域：}X_0(j\omega)=H_0(j\omega)X_p(j\omega)\text{，其中 }H_0(j\omega)=T \text{sinc}\left(\frac{\omega T}{2}\right) e^{-j\omega T/2} \\
+&\mbox{\footnotesize $\displaystyle x_0(t)=\sum_{n=-\infty}^{\infty} x(nT) \text{rect}\left(\frac{t-nT-T/2}{T}\right) $} 
+\\
+&\text{频域：}X_0(j\omega)=H_0(j\omega)X_p(j\omega)  
+\\
+&\text{，其中 }H_0(j\omega)=\frac{2\sin(\frac{\omega T}{2})}{\omega } e^{-j\omega T/2} 
+\\
 &\text{3. 线性内插：} \\
 &x_1(t)=\sum_{n=-\infty}^{\infty} x(nT) \text{tri}\left(\frac{t-nT}{T}\right) \\
-&\text{频域：}X_1(j\omega)=H_1(j\omega)X_p(j\omega)\text{，其中 }H_1(j\omega)=T \text{sinc}^2\left(\frac{\omega T}{2}\right)
+&\text{频域：}X_1(j\omega)=H_1(j\omega)X_p(j\omega)
+\\
+&\text{，其中 }H_1(j\omega)=\frac{1}{T}\left(\frac{\sin(\omega T / 2)}{\omega / 2}\right)^{2}
 \end{align*}
 
 \subsection{离散时间处理连续信号流程}
 \begin{align*}
 &\text{1. C/D转换：}x[n]=x_c(nT)\text{，频域关系：} \\
 &X(e^{j\omega})=\frac{1}{T} \sum_{k=-\infty}^{\infty} X_c\left(j\frac{\omega-2\pi k}{T}\right) \\
-&\text{2. 离散处理：}Y(e^{j\omega})=H(e^{j\omega})X(e^{j\omega})\text{，等效连续频率 }\Omega=\omega T \\
+&\text{2. 离散处理：}Y(e^{j\omega})=H(e^{j\omega})X(e^{j\omega})
+\\
+&\text{，等效连续频率 }\Omega=\omega T \\
 &\text{3. D/C转换：} \\
-&\quad \text{理想重建：}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \frac{\sin(\pi(t-nT)/T)}{\pi(t-nT)/T} \\
-&\quad \text{零阶保持：}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \text{rect}\left(\frac{t-nT-T/2}{T}\right) \\
+&\mbox{\footnotesize $\displaystyle \text{理想重建}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \frac{\sin(\pi(t-nT)/T)}{\pi(t-nT)/T}  $}
+\\
+&\mbox{\footnotesize $\displaystyle \text{零阶保持}y_c(t)=\sum_{n=-\infty}^{\infty} y[n] \text{rect}\left(\frac{t-nT-T/2}{T}\right) $}
+\\
 &\text{4. 等效连续系统：}H_{eff}(j\Omega)=
 \\
-&H(e^{j\Omega/T})\text{（}|\Omega|<\pi/T\text{）}
+&\quad H(e^{j\Omega/T})\text{（}|\Omega|<\pi/T\text{）}
 \end{align*}
 
-\subsection{混叠现象}
+\section{离散时间采样}
+\subsection{抽取（Decimation）}
 \begin{align*}
-&\text{产生：}\omega_s<2\omega_M\text{ 时，频谱重叠，高频成分"伪装"成低频} \\
-&\text{解决：预滤波（抗混叠滤波器）}
+&\text{时域：}y[n] = x[Mn] \\
+&\text{频域：}Y(e^{j\omega}) = \frac{1}{M}\sum_{k=0}^{M-1}X\left(e^{j\frac{\omega - 2\pi k}{M}}\right) 
+\\
+&\text{频谱周期延拓并压缩，采样率降低$M$倍} 
+\\
+&\text{抗混叠：先用 }\omega_c = \pi/M \text{ 低通滤波}
+\end{align*}
+\subsection{零值插入（Zero-padding）}
+\begin{align*}
+&\text{时域：}y[n] = \begin{cases} 
+x\left[\frac{n}{L}\right], & n=kL \\ 
+0, & \text{其他} 
+\end{cases} \\
+&\text{频域：}Y(e^{j\omega}) = X(e^{j\omega L}) \\
+&\text{频谱压缩，产生 }L-1\text{ 个镜像} \\
+&\text{需低通滤波去除镜像（}\omega_c = \pi/L\text{）}
+\end{align*}
+\subsection{内插（Interpolation）}
+\begin{align*}
+&\text{时域：}y[n] = x_L[n] * h[n] \\
+&\text{理想低通：}h[n] = \frac{\sin(\pi n / L)}{\pi n / L} \\
+&\text{频域：}Y(e^{j\omega}) = X(e^{j\omega L}) \cdot H(e^{j\omega})
+\\
+&\text{采样率提高$L$倍，插入$L - 1$个样本}
+\end{align*}
+
+\subsection{离散冲击串采样}
+\begin{align*}
+&\text{采样信号：}x_p[n]=x[n] \sum_{k=-\infty}^{\infty} \delta[n-kN] \\
+&X_p(e^{j\omega})=\frac{1}{N} \sum_{k=0}^{N-1} X\left(e^{j\frac{\omega - 2\pi k}{N}}\right) 
+\\
+&\text{频谱周期延拓，周期为 }2\pi/N
 \end{align*}
 
 \section{注意事项}
